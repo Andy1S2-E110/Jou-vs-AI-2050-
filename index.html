@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="nl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>JOU VS AI 2050 - BY ANDERSON 12 OPEX</title>
+<style>@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap');body{margin:0;background:#0a0a0f;color:white;font-family:'Orbitron',sans-serif;overflow:hidden;touch-action:none}
+#header{position:absolute;top:0;left:0;right:0;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;z-index:10;background:linear-gradient(180deg,rgba(0,0,0,0.8),transparent)}
+#logo{font-weight:900;font-size:18px}#logo span{color:#00ff88}#badge{font-size:10px;background:#111;border:1px solid #00ff88;color:#00ff88;padding:6px 10px;border-radius:20px}
+#scoreboard{position:absolute;top:70px;left:50%;transform:translateX(-50%);z-index:10;text-align:center;background:rgba(0,0,0,0.7);border:1px solid #333;padding:10px 20px;border-radius:12px}
+#score{font-size:28px;font-weight:900}#score span{color:#00ff88}#status{font-size:11px;color:#aaa;margin-top:4px}
+canvas{display:block;width:100vw;height:100vh}#controls{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);z-index:10;text-align:center;width:90%;max-width:400px}
+#powerBar{width:100%;height:12px;background:#222;border-radius:20px;overflow:hidden;border:1px solid #333;margin-bottom:12px;display:none}#powerFill{height:100%;width:0%;background:linear-gradient(90deg,#00ff88,#00d4ff);transition:width 0.05s}
+#shootBtn{background:linear-gradient(135deg,#00ff88,#00d4ff);color:#000;border:none;padding:16px 40px;border-radius:30px;font-family:'Orbitron';font-weight:900;font-size:16px;box-shadow:0 0 30px rgba(0,255,136,0.5);cursor:pointer;width:100%}#footer{position:absolute;bottom:5px;left:0;right:0;text-align:center;font-size:8px;color:#666;z-index:10}
+</style></head><body>
+<div id="header"><div id="logo">JOU <span>VS</span> AI 2050</div><div id="badge">BY ANDERSON • 12 • OPEX OOSTENDE • 2026</div></div>
+<div id="scoreboard"><div id="score"><span id="you">0</span> - <span id="ai">0</span></div><div id="status">HOLD voor kracht, RELEASE om te schieten!</div></div>
+<canvas id="game"></canvas>
+<div id="controls"><div id="powerBar"><div id="powerFill"></div></div><button id="shootBtn">HOLD TO CHARGE ⚡ - OPEX EDITION</button></div>
+<div id="footer">Made by Anderson, 12 years old, Opex, Oostende, Belgium - Oct 28 2026 - Build 1 - OPEX EDITION</div>
+<script>
+const canvas=document.getElementById('game');const ctx=canvas.getContext('2d');let W,H;function resize(){W=canvas.width=innerWidth*devicePixelRatio;H=canvas.height=innerHeight*devicePixelRatio;canvas.style.width=innerWidth+'px';canvas.style.height=innerHeight+'px';}resize();addEventListener('resize',resize);
+let scoreYou=0,scoreAi=0,power=0,charging=false,ball,keeper,goal,canShoot=true;
+function resetRound(){goal={x:W*0.5,y:H*0.25,w:W*0.5,h:H*0.22};keeper={x:goal.x,y:goal.y+goal.h*0.5,w:goal.w*0.18,h:goal.h*0.7,targetX:goal.x};ball={x:W*0.5,y:H*0.82,r:Math.min(W,H)*0.03,vx:0,vy:0,active:false,trail:[]};canShoot=true;power=0;document.getElementById('powerBar').style.display='none';}
+resetRound();
+function drawField(){ctx.fillStyle='#0a1a0
